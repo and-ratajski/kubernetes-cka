@@ -1,0 +1,19 @@
+version: "3.8"
+
+# NEVER USE ON PRODUCTION!
+#
+# This docker-compose file is meant to launch to kubectl proxy running in a private network. It uses self-signed
+# certificates in ordeer to enable connection via HTTPS
+
+services:
+
+  nginx:
+    build:
+      context: ./.docker
+      dockerfile: Dockerfile
+    image: and-ratajski/kubectl-api-proxy:develop
+    container_name: kubectl-api-proxy-develop
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
