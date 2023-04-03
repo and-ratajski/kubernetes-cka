@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-web-ui-svc
+  namespace: develop
+spec:
+  selector:
+    app.kubernetes.io/name: traefik
+  ports:
+  - name: api
+    port: 8080
+    targetPort: 8080

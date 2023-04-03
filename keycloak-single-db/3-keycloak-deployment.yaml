@@ -123,6 +123,8 @@ spec:
         imagePullPolicy: IfNotPresent
         args:
           - "start-dev"
+          - "--proxy=edge"
+          - "--hostname-strict=false"
           - "--metrics-enabled=true"
           - "-Dkeycloak.profile.feature.token_exchange=enabled"
           - "-Dkeycloak.profile.feature.admin_fine_grained_authz=enabled"

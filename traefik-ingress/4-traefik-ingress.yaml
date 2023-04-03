@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-ingress
+  namespace: develop
+spec:
+  defaultBackend:
+    service:
+      name: nginx-test-svc
+      port:
+        number: 80
+  rules:
+  - host: traefik-ui.localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: traefik-web-ui-svc
+            port:
+              name: api
+  
