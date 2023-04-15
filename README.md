@@ -16,3 +16,11 @@ Please mind that this tools where meant for and used on [bare metal kubernetes](
 
 - [traefik-ingress](./traefik-ingress/)
     Traefik run in ingress mode (under development)
+
+## Possible issues
+
+### DNS resolution
+
+This issue occurs especially on Ubuntu-based VMS
+
+https://stackoverflow.com/a/74549954/16775898

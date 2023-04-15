@@ -19,3 +19,7 @@ kubectl port-forward --address 0.0.0.0 --namespace=ingress-nginx service/ingress
 ## Mind ingress limitiations
 
 https://stackoverflow.com/a/63167986/16775898
+
+## Use annotations
+
+https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#external-authentication

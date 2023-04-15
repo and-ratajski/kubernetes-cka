@@ -327,6 +327,7 @@ subjects:
 - kind: ServiceAccount
   name: ingress-nginx-admission
   namespace: ingress-nginx
+  
 ---
 apiVersion: v1
 data:
