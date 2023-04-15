@@ -22,8 +22,8 @@ spec:
             name: nginx-test-svc
             port:
               number: 80
-        path: /healthz(.*)
-        pathType: Exact
+        path: /(.*)
+        pathType: Prefix
   - host: accounts.localhost
     http:
       paths:

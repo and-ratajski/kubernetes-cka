@@ -1,0 +1,77 @@
+# WARNING!
+# Do NOT use `cat` command to apply this manifest, e.g. `cat << EOF | kubectl -f -`.
+# Due to some sensitive chars (like $1) it will corrupt the manifest...
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: custom-nginx-html
+  namespace: develop
+data:
+  404.html: |-
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Ooops...</title>
+    <style>
+    html { color-scheme: light dark; }
+    body { width: 35em; margin: 0 auto;
+    font-family: Tahoma, Verdana, Arial, sans-serif; }
+    </style>
+    </head>
+    <body>
+    <div style="text-align: center">
+    <h1>404 Not Found</h1>
+    <p>We couldn't find what you're looking for...</p>
+    </div>
+    </body>
+    </html>
+  health.html: |-
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>I'm alive</title>
+    <style>
+    html { color-scheme: light dark; }
+    body { width: 35em; margin: 0 auto;
+    font-family: Tahoma, Verdana, Arial, sans-serif; }
+    </style>
+    </head>
+    <body>
+    <div style="text-align: center">
+    <h2>Thanks for checking, I'm fine!</h2>
+    </div>
+    </body>
+    </html>
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: custom-nginx-config
+  namespace: develop
+data:
+  custom.conf: |-
+    server {
+        server_name         _;
+        listen              80;
+        listen         [::]:80;
+
+        root /usr/share/nginx/html;
+        error_page 404 /404.html;
+
+        location / {
+            return 404;
+        }
+
+        location = /healthz(/|$)(.*) {
+            try_files /health.html =500;
+        }
+
+        location = /404.html {
+            internal;
+        }
+    }

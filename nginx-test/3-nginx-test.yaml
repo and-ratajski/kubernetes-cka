@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx-test-svc
   name: nginx-test-svc
-  namespace: test
+  namespace: develop
 spec:
   type: ClusterIP
   selector:
@@ -23,7 +23,7 @@ metadata:
   labels:
     app: nginx-test-deploy
   name: nginx-test-deploy
-  namespace: test
+  namespace: develop
 spec:
   progressDeadlineSeconds: 600
   replicas: 2
@@ -49,9 +49,23 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
+        volumeMounts: 
+        - name: static-html
+          mountPath: /usr/share/nginx/html
+          readOnly: true
+        - name: config
+          mountPath: /etc/nginx/conf.d
+          readOnly: true
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+      volumes:
+        - name: static-html
+          configMap:
+            name: custom-nginx-html
+        - name: config
+          configMap:
+            name: custom-nginx-config   
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
