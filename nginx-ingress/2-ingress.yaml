@@ -23,7 +23,7 @@ spec:
               number: 80
         path: /(.*)
         pathType: Prefix
-  - host: accounts.localhost
+  - host: accounts.dev.localhost
     http:
       paths:
       - backend:
